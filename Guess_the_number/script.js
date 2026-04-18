@@ -1,15 +1,15 @@
 let randomNumber = parseInt(Math.random() * 100 + 1);
 
-const submit = document.querySelector("#subt");
-const userInput = document.querySelector("#guessField");
-const guessSlot = document.querySelector(".guesses");
-const remaining = document.querySelector(".lastResult");
-const lowOrHi = document.querySelector(".lowOrHi");
-const startOver = document.querySelector(".resultParas");
-const p = document.createElement("p");
+const submit = document.querySelector("#subt"); //submit button
+const userInput = document.querySelector("#guessField"); //where user enters number
+const guessSlot = document.querySelector(".guesses"); //shows prev guesses
+const remaining = document.querySelector(".lastResult"); //shows remaining guesses
+const lowOrHi = document.querySelector(".lowOrHi"); //shows text no is high or low
+const startOver = document.querySelector(".resultParas"); //div containing prev,remaining and low or high guesses
+const p = document.createElement("p"); //start new game
 
 let prevGuesses = [];
-let numOfGuesses = 1;
+let numOfGuesses = 0;
 let playGame = true;
 if (playGame) {
   submit.addEventListener("click", function (e) {
@@ -30,7 +30,7 @@ function validateGuess(guess) {
     alert("Please enter a number less than 100");
   } else {
     prevGuesses.push(guess);
-    if (numOfGuesses === 10) {
+    if (numOfGuesses === 9) {
       displayGuess(guess);
       displayMessage(`Game over.Random number was ${randomNumber}`);
       endGame();
@@ -56,7 +56,7 @@ function displayGuess(guess) {
   userInput.value = "";
   guessSlot.innerHTML += `${guess}  `;
   numOfGuesses++;
-  remaining.innerHTML = `${11 - numOfGuesses}`;
+  remaining.innerHTML = `${10 - numOfGuesses}`;
 }
 function displayMessage(message) {
   // Display the message to the user,tells about the guess and the number of guesses left
@@ -78,9 +78,9 @@ function newGame() {
   newGameButton.addEventListener("click", function (e) {
     randomNumber = parseInt(Math.random() * 100 + 1);
     prevGuesses = [];
-    numOfGuesses = 1;
+    numOfGuesses = 0;
     guessSlot.innerHTML = "";
-    remaining.innerHTML = `${11 - numOfGuesses}`;
+    remaining.innerHTML = `${10 - numOfGuesses}`;
     userInput.removeAttribute("disabled");
     startOver.removeChild(p);
     playGame = true;
